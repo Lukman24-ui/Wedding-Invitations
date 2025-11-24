@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Calendar, MapPin, Clock, Shirt, MessageCircle } from "lucide-react";
+import { Calendar, MapPin, Clock, Shirt, MessageCircle, Heart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -8,11 +8,15 @@ import { useToast } from "@/hooks/use-toast";
 import cloudyBlueBg from "@/assets/cloudy-blue-bg.jpg";
 import elegantTable from "@/assets/elegant-table.jpg";
 import heroSatinBg from "@/assets/hero-satin-bg.jpg";
-import { getWeddingInvitation, submitRSVP, WeddingInvitation } from "@/lib/supabase";
+import gallery1 from "@/assets/gallery-1.jpg";
+import gallery2 from "@/assets/gallery-2.jpg";
+import gallery3 from "@/assets/gallery-3.jpg";
+import { getWeddingInvitation, getWeddingGallery, submitRSVP, WeddingInvitation, WeddingGallery } from "@/lib/supabase";
 
 const Invitation = () => {
   const { toast } = useToast();
   const [weddingData, setWeddingData] = useState<WeddingInvitation | null>(null);
+  const [galleryData, setGalleryData] = useState<WeddingGallery[]>([]);
   const [loading, setLoading] = useState(true);
   const [formData, setFormData] = useState({
     guest_name: "",
@@ -22,10 +26,16 @@ const Invitation = () => {
     phone_number: "",
   });
 
+  const galleryImages = [gallery1, gallery2, gallery3];
+
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getWeddingInvitation();
-      setWeddingData(data);
+      const [wedding, gallery] = await Promise.all([
+        getWeddingInvitation(),
+        getWeddingGallery('story')
+      ]);
+      setWeddingData(wedding);
+      setGalleryData(gallery);
       setLoading(false);
     };
     fetchData();
@@ -84,7 +94,7 @@ const Invitation = () => {
         </div>
       </section>
 
-      {/* Story Section */}
+      {/* Gallery Story Section */}
       <section 
         className="relative py-20 px-6"
         style={{
@@ -94,13 +104,48 @@ const Invitation = () => {
         }}
       >
         <div className="absolute inset-0 bg-cloudy-blue/90" />
-        <div className="relative z-10 max-w-4xl mx-auto">
-          <div className="luxury-card p-8 md:p-12 text-center space-y-6 fade-in">
-            <h2 className="text-3xl md:text-4xl font-serif text-gold-accent">{weddingData?.story_title}</h2>
-            <div className="h-px w-24 bg-gold-accent mx-auto" />
-            <p className="text-light-beige/90 leading-relaxed text-lg">
-              {weddingData?.story_content}
-            </p>
+        <div className="relative z-10 max-w-6xl mx-auto">
+          <div className="text-center mb-16 fade-in">
+            <Heart className="w-16 h-16 text-gold-accent mx-auto mb-6" />
+            <h2 className="text-4xl md:text-5xl font-serif text-gold-accent mb-4">Perjalanan Cinta Kami</h2>
+            <div className="h-px w-32 bg-gold-accent mx-auto" />
+          </div>
+
+          <div className="space-y-20">
+            {galleryData.map((item, index) => {
+              const isEven = index % 2 === 0;
+              return (
+                <div 
+                  key={item.id}
+                  className={`grid md:grid-cols-2 gap-8 items-center fade-in ${isEven ? '' : 'md:grid-flow-dense'}`}
+                  style={{ animationDelay: `${index * 0.2}s` }}
+                >
+                  <div className={isEven ? 'md:order-1' : 'md:order-2'}>
+                    <div className="relative overflow-hidden rounded-2xl shadow-[0_20px_60px_-15px_hsl(213_55%_18%/0.6)] group">
+                      <img 
+                        src={galleryImages[index] || item.image_url}
+                        alt={item.caption || 'Gallery'}
+                        className="w-full h-[400px] object-cover transition-transform duration-700 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-deep-blue/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </div>
+                  
+                  <div className={`luxury-card p-8 md:p-10 space-y-4 ${isEven ? 'md:order-2' : 'md:order-1'}`}>
+                    <div className="flex items-center gap-3 mb-4">
+                      <div className="w-12 h-12 rounded-full bg-gold-accent/20 flex items-center justify-center">
+                        <span className="text-gold-accent font-serif text-xl font-bold">{index + 1}</span>
+                      </div>
+                      <h3 className="text-2xl md:text-3xl font-serif text-gold-accent">{item.caption}</h3>
+                    </div>
+                    <div className="h-px w-16 bg-gold-accent/30" />
+                    <p className="text-light-beige/90 leading-relaxed text-base md:text-lg">
+                      {item.story_text}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
           </div>
         </div>
       </section>
