@@ -27,6 +27,7 @@ export interface WeddingGallery {
   wedding_id: string;
   image_url: string;
   caption: string | null;
+  story_text: string | null;
   display_order: number;
   section: string;
 }
