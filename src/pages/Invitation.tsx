@@ -12,6 +12,7 @@ import gallery1 from "@/assets/gallery-1.jpg";
 import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import { getWeddingInvitation, getWeddingGallery, submitRSVP, WeddingInvitation, WeddingGallery } from "@/lib/supabase";
+import BackgroundMusic from "@/components/BackgroundMusic";
 
 const Invitation = () => {
   const { toast } = useToast();
@@ -76,6 +77,8 @@ const Invitation = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      {/* Background Music Player */}
+      <BackgroundMusic />
       {/* Hero Section with Names */}
       <section 
         className="relative min-h-[60vh] flex items-center justify-center"
