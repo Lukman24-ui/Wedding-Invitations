@@ -13,6 +13,7 @@ import gallery2 from "@/assets/gallery-2.jpg";
 import gallery3 from "@/assets/gallery-3.jpg";
 import { getWeddingInvitation, getWeddingGallery, submitRSVP, WeddingInvitation, WeddingGallery } from "@/lib/supabase";
 import BackgroundMusic from "@/components/BackgroundMusic";
+import LocationMap from "@/components/LocationMap";
 
 const Invitation = () => {
   const { toast } = useToast();
@@ -162,62 +163,76 @@ const Invitation = () => {
           
           <div className="grid md:grid-cols-2 gap-8">
             {/* Akad */}
-            <Card className="luxury-card p-8 space-y-6 fade-in">
-              <h3 className="text-2xl font-serif text-gold-accent text-center">Akad Nikah</h3>
-              <div className="space-y-4 text-light-beige/90">
-                <div className="flex items-start gap-4">
-                  <Calendar className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-semibold">Tanggal</p>
-                    <p>{weddingData?.event_date_akad}</p>
+            <div className="space-y-6 fade-in">
+              <Card className="luxury-card p-8 space-y-6">
+                <h3 className="text-2xl font-serif text-gold-accent text-center">Akad Nikah</h3>
+                <div className="space-y-4 text-light-beige/90">
+                  <div className="flex items-start gap-4">
+                    <Calendar className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
+                    <div>
+                      <p className="font-semibold">Tanggal</p>
+                      <p>{weddingData?.event_date_akad}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <Clock className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
+                    <div>
+                      <p className="font-semibold">Waktu</p>
+                      <p>{weddingData?.event_time_akad}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <MapPin className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
+                    <div>
+                      <p className="font-semibold">Lokasi</p>
+                      <p>{weddingData?.event_location_akad}</p>
+                      <p className="text-sm text-light-beige/70">{weddingData?.event_address_akad}</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-start gap-4">
-                  <Clock className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-semibold">Waktu</p>
-                    <p>{weddingData?.event_time_akad}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <MapPin className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-semibold">Lokasi</p>
-                    <p>{weddingData?.event_location_akad}</p>
-                    <p className="text-sm text-light-beige/70">{weddingData?.event_address_akad}</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
+              </Card>
+              
+              <LocationMap
+                locationName={weddingData?.event_location_akad || "Masjid Al-Ikhlas"}
+                address={weddingData?.event_address_akad || "Jl. Contoh No. 123, Jakarta"}
+              />
+            </div>
 
             {/* Resepsi */}
-            <Card className="luxury-card p-8 space-y-6 fade-in" style={{ animationDelay: '0.2s' }}>
-              <h3 className="text-2xl font-serif text-gold-accent text-center">Resepsi</h3>
-              <div className="space-y-4 text-light-beige/90">
-                <div className="flex items-start gap-4">
-                  <Calendar className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-semibold">Tanggal</p>
-                    <p>{weddingData?.event_date_resepsi}</p>
+            <div className="space-y-6 fade-in" style={{ animationDelay: '0.2s' }}>
+              <Card className="luxury-card p-8 space-y-6">
+                <h3 className="text-2xl font-serif text-gold-accent text-center">Resepsi</h3>
+                <div className="space-y-4 text-light-beige/90">
+                  <div className="flex items-start gap-4">
+                    <Calendar className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
+                    <div>
+                      <p className="font-semibold">Tanggal</p>
+                      <p>{weddingData?.event_date_resepsi}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <Clock className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
+                    <div>
+                      <p className="font-semibold">Waktu</p>
+                      <p>{weddingData?.event_time_resepsi}</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start gap-4">
+                    <MapPin className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
+                    <div>
+                      <p className="font-semibold">Lokasi</p>
+                      <p>{weddingData?.event_location_resepsi}</p>
+                      <p className="text-sm text-light-beige/70">{weddingData?.event_address_resepsi}</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-start gap-4">
-                  <Clock className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-semibold">Waktu</p>
-                    <p>{weddingData?.event_time_resepsi}</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <MapPin className="w-6 h-6 text-gold-accent flex-shrink-0 mt-1" />
-                  <div>
-                    <p className="font-semibold">Lokasi</p>
-                    <p>{weddingData?.event_location_resepsi}</p>
-                    <p className="text-sm text-light-beige/70">{weddingData?.event_address_resepsi}</p>
-                  </div>
-                </div>
-              </div>
-            </Card>
+              </Card>
+              
+              <LocationMap
+                locationName={weddingData?.event_location_resepsi || "Gedung Pernikahan Elite"}
+                address={weddingData?.event_address_resepsi || "Jl. Contoh No. 456, Jakarta"}
+              />
+            </div>
           </div>
         </div>
       </section>
