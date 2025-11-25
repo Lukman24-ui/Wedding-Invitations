@@ -8,52 +8,55 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    /* Luxury Blue Wedding Palette */
-    --deep-blue: 213 55% 18%;
-    --cloudy-blue: 210 45% 32%;
-    --sky-blue: 206 45% 85%;
-    --light-beige: 60 47% 96%;
-    --gold-accent: 42 78% 55%;
+    /* Emerald & Turkish Blue Palette */
+    --emerald: 160 84% 39%;
+    --emerald-light: 158 64% 52%;
+    --emerald-dark: 160 100% 25%;
+    --turkish-blue: 188 91% 23%;
+    --turkish-light: 188 71% 50%;
+    --light-cream: 40 33% 95%;
     
     /* Core design tokens */
-    --background: 213 55% 18%;
-    --foreground: 60 47% 96%;
+    --background: 0 0% 7%;
+    --foreground: 40 33% 95%;
 
-    --card: 210 45% 32%;
-    --card-foreground: 60 47% 96%;
+    --card: 0 0% 12%;
+    --card-foreground: 40 33% 95%;
 
-    --popover: 210 45% 32%;
-    --popover-foreground: 60 47% 96%;
+    --popover: 0 0% 12%;
+    --popover-foreground: 40 33% 95%;
 
-    --primary: 42 78% 55%;
-    --primary-foreground: 213 55% 18%;
+    --primary: 160 84% 39%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 206 45% 85%;
-    --secondary-foreground: 213 55% 18%;
+    --secondary: 188 91% 23%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 210 45% 32%;
-    --muted-foreground: 206 45% 85%;
+    --muted: 0 0% 15%;
+    --muted-foreground: 40 33% 70%;
 
-    --accent: 42 78% 55%;
-    --accent-foreground: 213 55% 18%;
+    --accent: 158 64% 52%;
+    --accent-foreground: 0 0% 7%;
 
     --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 60 47% 96%;
+    --destructive-foreground: 40 33% 95%;
 
-    --border: 206 45% 85% / 0.2;
-    --input: 206 45% 85% / 0.3;
-    --ring: 42 78% 55%;
+    --border: 160 84% 39% / 0.2;
+    --input: 0 0% 20%;
+    --ring: 160 84% 39%;
 
-    --radius: 1rem;
+    --radius: 1.5rem;
     
     /* Custom gradients */
-    --gradient-satin: linear-gradient(135deg, hsl(213 55% 18%) 0%, hsl(210 45% 32%) 50%, hsl(213 55% 18%) 100%);
-    --gradient-gold: linear-gradient(135deg, hsl(42 78% 55%) 0%, hsl(42 78% 65%) 100%);
-    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(213 55% 18% / 0.8) 100%);
+    --gradient-dark: linear-gradient(180deg, hsl(0 0% 7%) 0%, hsl(0 0% 10%) 100%);
+    --gradient-emerald: linear-gradient(135deg, hsl(160 84% 39%) 0%, hsl(158 64% 52%) 100%);
+    --gradient-turkish: linear-gradient(135deg, hsl(188 91% 23%) 0%, hsl(188 71% 50%) 100%);
+    --gradient-overlay: linear-gradient(180deg, transparent 0%, hsl(0 0% 7% / 0.9) 100%);
     
     /* Shadows */
-    --shadow-luxury: 0 10px 40px -10px hsl(213 55% 18% / 0.5);
-    --shadow-gold: 0 8px 32px -8px hsl(42 78% 55% / 0.3);
+    --shadow-luxury: 0 20px 60px -15px hsl(0 0% 0% / 0.7);
+    --shadow-emerald: 0 10px 40px -10px hsl(160 84% 39% / 0.5);
+    --shadow-turkish: 0 10px 40px -10px hsl(188 91% 23% / 0.5);
     
     /* Transitions */
     --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
@@ -77,11 +80,28 @@ All colors MUST be HSL.
 
 @layer utilities {
   .luxury-card {
-    @apply bg-card backdrop-blur-sm border border-border/20 rounded-2xl shadow-[0_10px_40px_-10px_hsl(213_55%_18%/0.5)];
+    @apply bg-card backdrop-blur-sm border border-border rounded-3xl shadow-[0_20px_60px_-15px_hsl(0_0%_0%/0.7)];
   }
   
-  .gold-text {
-    @apply text-[hsl(42_78%_55%)] font-semibold;
+  .emerald-text {
+    @apply text-emerald font-semibold;
+  }
+  
+  .torn-paper {
+    clip-path: polygon(
+      0% 0%, 
+      2% 1%, 4% 0.5%, 6% 1.5%, 8% 0.8%, 10% 1.2%, 
+      12% 0.6%, 14% 1.4%, 16% 0.9%, 18% 1.3%, 20% 0.7%,
+      22% 1.1%, 24% 0.5%, 26% 1.5%, 28% 0.8%, 30% 1.2%,
+      32% 0.6%, 34% 1.4%, 36% 0.9%, 38% 1.3%, 40% 0.7%,
+      42% 1.1%, 44% 0.5%, 46% 1.5%, 48% 0.8%, 50% 1.2%,
+      52% 0.6%, 54% 1.4%, 56% 0.9%, 58% 1.3%, 60% 0.7%,
+      62% 1.1%, 64% 0.5%, 66% 1.5%, 68% 0.8%, 70% 1.2%,
+      72% 0.6%, 74% 1.4%, 76% 0.9%, 78% 1.3%, 80% 0.7%,
+      82% 1.1%, 84% 0.5%, 86% 1.5%, 88% 0.8%, 90% 1.2%,
+      92% 0.6%, 94% 1.4%, 96% 0.9%, 98% 1.3%, 100% 0.7%,
+      100% 100%, 0% 100%
+    );
   }
   
   .script-text {
